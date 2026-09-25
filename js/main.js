@@ -24,16 +24,26 @@ console.log(viajesEspaciales);
 let mision;
 
 do{
-    mision = parseInt(prompt("🚀 NASA - Centro de control \n\n¿Qué quieres hacer? \n1. Elegir destino por categoría \n2. Buscar un destino \n3. ver todos los destinos \n4. Viajar por todo el espacio \n\n5. Salir"));
+    mision = parseInt(prompt("🚀 NASA - Centro de control \n\n¿Qué quieres hacer? \n1. Elegir destino por categoría \n2. Buscar un destino \n3. Ver todos los destinos \n4. Viajar por todo el espacio \n\n5. Salir"));
 
     switch (mision){
         case 1:
+            const eligeCategoria = prompt("¿Qué categoría quieres explorar? \n- Planeta \n- Satélite \n- Planeta Enano \n- Estrella \n- Volver");
+            const destinosFiltrados = viajesEspaciales.filter(viaje => viaje.categoria === eligeCategoria);
+            console.log(destinosFiltrados);
             break;
         case 2:
+            const eligeDestino = prompt("¿Qué destino quieres buscar? \n\n- Volver");
+            const destinoFiltrado = viajesEspaciales.find(viaje => viaje.destino === eligeDestino);
+            console.log(destinoFiltrado);
             break;
         case 3:
+            const nombreDestinos = viajesEspaciales.map(viaje => viaje.destino);
+            console.log("Destino: " + nombreDestinos);
             break;
         case 4:
+            const totalDistancia = viajesEspaciales.reduce((acc, viaje) => acc + viaje.distancia, 0);
+            console.log("Distancia total: " + totalDistancia);
             break;
         case 5:
             break;
