@@ -26,11 +26,34 @@ function convertirDuracion(horasTotales){
     const horasRestantes = horasTotales % horasAnio;
     const dias = parseInt(horasRestantes / 24);
     const horas = horasRestantes % 24;
-
+    
     return anios + " años, " + dias + " días y " + horas + " horas";
 }
 
 let mision;
+
+function regresarTierra(){
+    
+    let regresar;
+    
+    do{
+        regresar = prompt("¿Quieres volver a la Tierra?\n\n1. Si\n2. No").toLowerCase();
+        console.log("Regresar: " + regresar);
+        if(regresar === "1" || regresar === "si"){
+            alert("Astronauta " + nombreAstronauta + " regresando al planeta Tierra..");
+            console.log("Astronauta " + nombreAstronauta + " decidió volver a la Tierra.");
+        }
+        else if(regresar === "2" || regresar === "no"){
+            alert("Gracias por haber participado en la misión. \nTe deseamos una vida prospera en tu nuevo hogar.");
+            console.log("Astronauta " + nombreAstronauta + " decidió quedarse en el espacio.");
+            mision = 5;
+        }
+        else{
+            alert("Respuesta incorrecta");
+        }
+    
+    }while(regresar !== "1" && regresar !== "2" && regresar !== "si" && regresar !== "no");
+}
 
 function ejecutarMision(viajeSeleccionado){
 let accion;
@@ -44,22 +67,21 @@ do{
             const duracionViaje = viajeSeleccionado.distancia / viajeSeleccionado.velocidad;
             console.log("Se procede el despegue a: " + viajeSeleccionado.destino);
             alert("🚀 Misión completada! \nHas llegado a " + viajeSeleccionado.destino + "\nDuración del viaje: " + convertirDuracion(duracionViaje) + ".\nNuestros amigos te dan la bienvenida 👽\n\n" + viajeSeleccionado.mensaje);
-            const regresar = prompt("¿Quieres volver a la Tierra?\n\n1. Si\n2. No").toLowerCase();
-            console.log("Regresar: " + regresar);
-            if(regresar === 1 || regresar === "si"){
-                alert("Astronauta " + nombreAstronauta + " regresando al planeta Tierra..");
-                console.log("Astronauta " + nombreAstronauta + " decidió volver a la Tierra.");
-            }
-            else if(regresar === 2 || regresar === "no"){
-                alert("Gracias por haber participado en la misión. \nTe deseamos una vida prospera en tu nuevo hogar.");
-                console.log("Astronauta " + nombreAstronauta + " decidió quedarse en " + viajeSeleccionado.destino + ".");
-                mision = 5;
-            }
+            regresarTierra();
             break;
             }
 
             case 2:{
-                const nuevaVelocidad = parseInt(prompt("🚀 A que velocidad quieres viajar ?"));
+                let nuevaVelocidad;
+
+                do{
+                    nuevaVelocidad = parseInt(prompt("🚀 A que velocidad quieres viajar ?"));
+                    if(isNaN(nuevaVelocidad)){
+                        alert("Debes ingresar solo números");
+                    }
+
+                }while(isNaN(nuevaVelocidad));
+
                 viajeSeleccionado.velocidad = nuevaVelocidad;
                 console.log("🚀 Nueva velocidad configurada: " + viajeSeleccionado.velocidad + " km/h");
                 console.log(viajeSeleccionado);
@@ -181,6 +203,43 @@ do{
             const totalDistancia = viajesEspaciales.reduce((acc, viaje) => acc + viaje.distancia, 0);
             console.log("Distancia total: " + totalDistancia);
             alert("Distancia total del viaje espacial: " + totalDistancia + " km");
+            let velocidadViaje;
+
+            do{
+                velocidadViaje = parseInt(prompt("🚀 A que velocidad quieres viajar ?"));
+                if(isNaN(velocidadViaje)){
+                    alert("Debes ingresar solo números");
+                }
+
+            }while(isNaN(velocidadViaje));
+
+            const duracionViaje = totalDistancia / velocidadViaje;
+            alert("El viaje espacial tiene una duración de: " + convertirDuracion(duracionViaje));
+
+            let iniciarViaje;
+
+            do{
+
+                iniciarViaje = prompt("Quieres iniciar el viaje por todo el espacio? \n\n1. Si \n2. No").toLowerCase();
+    
+                if(iniciarViaje === "si" || iniciarViaje === "1"){
+    
+                    alert("🚀 ¡Misión iniciada!\n\nHas comenzado tu viaje por todo el espacio.\nDuración estimada: " + convertirDuracion(duracionViaje));
+
+
+                    regresarTierra();
+
+    
+                }
+                else if(iniciarViaje === "no" || iniciarViaje === "2"){
+                    alert("No te preocupes, no todos están listos para volar.");
+                }
+                else{
+                    alert("Respuesta incorrecta");
+                }
+
+            }while(iniciarViaje !=="si" && iniciarViaje !== "no" && iniciarViaje !== "1" && iniciarViaje !== "2");
+
             break;
 
         case 5:
